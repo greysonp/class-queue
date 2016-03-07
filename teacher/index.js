@@ -9,7 +9,7 @@
     }
 
     function renderLoginPage(sessionKey) {
-        render('/teacher/page/login.html', function() {
+        render('page/login.html', function() {
             $('#js-form').submit(function(e) {
                 var userInput = $('#js-teacher-password').val();
                 if (sessionKey === userInput) {
@@ -23,7 +23,7 @@
     }
 
     function renderDashboard() {
-        render('/teacher/page/dashboard.html', function() {
+        render('page/dashboard.html', function() {
 
             // Submit event
             $('#js-form').submit(function(e) {
@@ -38,7 +38,6 @@
             var template = Handlebars.compile(source);
             getFirebase().child('questions').on('value', function(snapshot) {
                 var questions = snapshot.val();
-                console.log(questions);
                 var html = template({
                     questions: questions
                 });
