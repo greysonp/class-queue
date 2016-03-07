@@ -37,13 +37,32 @@
             var source = $("#js-questions-template").html();
             var template = Handlebars.compile(source);
             getFirebase().child('questions').on('value', function(snapshot) {
-                var questions = snapshot.val();
+                var questions = formatQuestionSnapshot(snapshot.val());
+
                 var html = template({
                     questions: questions
                 });
                 $('#js-questions').html(html);
+
+                $('#js-questions .remove-btn').click(function() {
+                    var key = $(this).data('key');
+                    getFirebase().child('questions').child(key).remove();
+                });
             });
         });
+    }
+
+    function formatQuestionSnapshot(obj) {
+        var questions = [];
+        for (var key in obj) {
+            var q = {
+                key: key,
+                name: obj[key].name,
+                question: obj[key].question
+            };
+            questions.push(q);
+        }
+        return questions;
     }
 
     function render(page, callback) {
