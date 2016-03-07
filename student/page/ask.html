@@ -1,24 +1,24 @@
 <form id="js-form">
-    <div>
+    <div class="form-group">
         <label for="js-name">Name</label>
-        <input type="text" id="js-name">
+        <input type="text" id="js-name" class="form-control">
     </div>
 
-    <div>
+    <div class="form-group">
         <label for="js-question">Question Summary</label>
-        <textarea id="js-question"></textarea>
+        <textarea id="js-question" class="form-control"></textarea>
     </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
+<h1>Question Queue</h1>
 <div id="js-questions"></div>
 
 <script id="js-questions-template" type="text/x-handlebars-template">
-    {{#each questions}}
-    <div>
-        <h1>{{ name }}</h1>
-        <div>
-            {{ question }}
-        </div>
-    </div>
-    {{/each}}
+    <ul class="list-group">
+        {{#each questions}}
+        <li class="list-group-item">{{ name }}</li>
+        {{/each}}
+    </ul>
 </script>
