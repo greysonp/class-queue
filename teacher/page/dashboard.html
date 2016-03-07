@@ -13,7 +13,7 @@
     <ul class="list-group">
         {{#each questions}}
         <li class="list-group-item">
-            <span class="badge">Mark Complete</span>
+            <span class="badge remove-btn" data-key="{{ key }}">Mark Complete</span>
             <h4 class="list-group-item-heading">{{ name }}</h4>
             <p class="list-group-item-text">{{ question }}</p>
         </li>
