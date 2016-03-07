@@ -58,7 +58,8 @@
             var q = {
                 key: key,
                 name: obj[key].name,
-                question: obj[key].question
+                question: obj[key].question,
+                computer_number: obj[key].computer_number
             };
             questions.push(q);
         }

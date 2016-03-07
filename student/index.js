@@ -28,14 +28,13 @@
             // Submit event
             $('#js-form').submit(function(e) {
                 e.preventDefault();
-
-                var name = $('#js-name').val();
-                var question = $('#js-question').val();
+                var computerNumber = $('#js-computer-number').val();
 
                 getFirebase().child('questions').push().set({
-                    name: name,
-                    question: question
-                })
+                    name: 'Not set',
+                    question: 'Not set',
+                    computer_number: computerNumber
+                });
             });
 
             // Render question list
