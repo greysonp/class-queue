@@ -14,7 +14,8 @@
         {{#each questions}}
         <li class="list-group-item">
             <span class="badge remove-btn" data-key="{{ key }}">Mark Complete</span>
-            <p class="list-group-item-text">Computer {{ computer_number }}</p>
+            <h4 class="list-group-item-heading">Computer {{ computer_number }}</h4>
+            <p class="list-group-item-text timestamp" data-time="{{ time }}"></p>
         </li>
         {{/each}}
     </ul>

@@ -48,7 +48,12 @@
                     var key = $(this).data('key');
                     getFirebase().child('questions').child(key).remove();
                 });
+
+                updateTimestamps();
             });
+
+            // Keep time display correct
+            setInterval(updateTimestamps, 1000);
         });
     }
 
@@ -59,11 +64,47 @@
                 key: key,
                 name: obj[key].name,
                 question: obj[key].question,
-                computer_number: obj[key].computer_number
+                computer_number: obj[key].computer_number,
+                time: obj[key].time
             };
             questions.push(q);
         }
         return questions;
+    }
+
+    function updateTimestamps() {
+        $('.timestamp').each(function() {
+            var timestamp = Math.floor(parseInt($(this).data('time'))/1000);
+            var now = Math.floor(Date.now()/1000);
+            var minutes = Math.floor((now - timestamp)/60);
+            var seconds = (now - timestamp) % 60;
+
+            var text = '';
+
+            if (minutes <= 0) {
+                if (seconds == 1) {
+                    text = seconds + ' second ago.';
+                } else {
+                    text = seconds + ' seconds ago.';
+                }
+            } else {
+                if (minutes == 1) {
+                    if (seconds == 1) {
+                        text = minutes + ' minute and ' + seconds + ' second ago.';
+                    } else {
+                        text = minutes + ' minute and ' + seconds + ' seconds ago.';
+                    }
+                } else {
+                    if (seconds == 1) {
+                        text = minutes + ' minutes and ' + seconds + ' second ago.';
+                    } else {
+                        text = minutes + ' minutes and ' + seconds + ' seconds ago.';
+                    }
+                }
+            }
+
+            $(this).text(text);
+        });
     }
 
     function render(page, callback) {
