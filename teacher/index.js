@@ -55,6 +55,34 @@
             // Keep time display correct
             setInterval(updateTimestamps, 1000);
         });
+        
+        // Register service worker for push notification support
+        if ('serviceWorker' in navigator) {
+            console.log('Service Worker is supported');
+            
+            // Regiser
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                console.log('Service worker registered!', reg);
+            }).catch(function(err) {
+                console.error('Service worker failed to register.', err);
+            });
+            
+            // Listen for ready event to subscribe to notifications
+            navigator.serviceWorker.ready.then(function(reg) {
+                console.log('Service worker ready!');
+                reg.pushManager.subscribe({
+                    userVisibleOnly: true
+                }).then(function(sub) {
+                    var subId = getSubIdFromEndpoint(sub.endpoint);
+                    getFirebase().child('subscription_ids').child(subId).set(true);
+                });
+            });
+        }
+    }
+    
+    function getSubIdFromEndpoint(endpoint) {
+        var parts = endpoint.split('/');
+        return parts[parts.length - 1];
     }
 
     function formatQuestionSnapshot(obj) {
