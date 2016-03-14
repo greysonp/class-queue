@@ -1,21 +1,21 @@
 console.log('Started', self);
 
 self.addEventListener('install', function(event) {
-  console.log('Installed', event);
-  return self.skipWaiting();
+    console.log('Installed', event);
+    return self.skipWaiting();
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('Activated', event);
+    console.log('Activated', event);
 });
 
 self.addEventListener('push', function(event) {
-  console.log('Push message received', event);
-  event.waitUntil(
-    self.registration.showNotification('New Question', {
-      body: 'test body',
-      icon: 'images/icon.png',
-      tag: 'class-queue-tag'
-    })
-  );
+    console.log('Push message received', event);
+    event.waitUntil(
+        self.registration.showNotification('New Question', {
+            body: 'test body',
+            icon: 'images/icon.png',
+            tag: 'class-queue-tag'
+        })
+    );
 });
