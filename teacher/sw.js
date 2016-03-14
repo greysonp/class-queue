@@ -12,8 +12,7 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('push', function(event) {
     console.log('Push message received', event);
     event.waitUntil(
-        self.registration.showNotification('New Question', {
-            body: 'test body',
+        self.registration.showNotification('New Question!', {
             icon: 'images/icon.png',
             tag: 'class-queue-tag'
         })
