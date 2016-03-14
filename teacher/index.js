@@ -73,10 +73,16 @@
                 reg.pushManager.subscribe({
                     userVisibleOnly: true
                 }).then(function(sub) {
-                    console.log('endpoint:', sub.endpoint);
+                    var subId = getSubIdFromEndpoint(sub.endpoint);
+                    getFirebase().child('subscription_ids').child(subId).set(true);
                 });
             });
         }
+    }
+    
+    function getSubIdFromEndpoint(endpoint) {
+        var parts = endpoint.split('/');
+        return parts[parts.length - 1];
     }
 
     function formatQuestionSnapshot(obj) {
