@@ -55,6 +55,28 @@
             // Keep time display correct
             setInterval(updateTimestamps, 1000);
         });
+        
+        // Register service worker for push notification support
+        if ('serviceWorker' in navigator) {
+            console.log('Service Worker is supported');
+            
+            // Regiser
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                console.log('Service worker registered!', reg);
+            }).catch(function(err) {
+                console.error('Service worker failed to register.', err);
+            });
+            
+            // Listen for ready event to subscribe to notifications
+            navigator.serviceWorker.ready.then(function(reg) {
+                console.log('Service worker ready!');
+                reg.pushManager.subscribe({
+                    userVisibleOnly: true
+                }).then(function(sub) {
+                    console.log('endpoint:', sub.endpoint);
+                });
+            });
+        }
     }
 
     function formatQuestionSnapshot(obj) {
